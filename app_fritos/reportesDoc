@@ -1,0 +1,12 @@
+Módulo de reportes implementado:
+
+- Actualicé `lib/screens/dashboard.dart` para reemplazar la pestaña de reportes vacía con `ReportesPage()`.
+- Desarrollé `lib/services/ReportesService.dart` para centralizar la obtención de datos de ventas desde el servicio existente `VentasService`.
+- Creé la pantalla de reportes en `lib/screens/reportes/reportes_page.dart` con:
+  - Resumen de métricas: ventas hoy, productos activos, productos vendidos hoy y productos de alta rotación.
+  - Sección de top productos más vendidos.
+  - Sección de productos que se agotan rápido.
+  - Recomendaciones basadas en la rotación de ventas del día.
+  - Alertas de rotación/stock potencial con sugerencias para revisar inventario.
+- El módulo aprovecha los datos actuales del backend (ventas diarias) para generar análisis sin agregar nuevas rutas al backend.
+- Documentación creada en este archivo para que puedas ver qué archivos cambié. 

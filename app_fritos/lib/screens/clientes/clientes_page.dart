@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/cliente.dart';
-import '../../services/Cliente_service.dart';
+import '../../services/ClienteService.dart';
 import 'crear_Cliente_page.dart';
 import 'editar_Cliente_page.dart';
 
@@ -56,7 +56,7 @@ class _ClientesPageState extends State<ClientesPage> {
                 final c = clientes[i];
                 return ListTile(
                   title: Text(c.nombre),
-                  subtitle: Text("\$${c.telefono}"),
+                  subtitle: Text(c.telefono),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

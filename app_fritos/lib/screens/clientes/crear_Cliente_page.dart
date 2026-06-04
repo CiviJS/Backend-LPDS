@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/cliente_service.dart';
+import '../../services/ClienteService.dart';
 
 class CrearclientePage extends StatefulWidget {
   const CrearclientePage({super.key});

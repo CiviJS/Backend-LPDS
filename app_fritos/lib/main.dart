@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'screens/productos/productos_page.dart';
-import 'screens/clientes/clientes_page.dart';
 import 'routes/app_routes.dart';
 
 void main() {

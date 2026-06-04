@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/cliente.dart';
+import '../config/Environment.dart';
 
 class ClienteService {
-  static const String baseUrl = "http://localhost:3000/api/Clientes";
+  static const String baseUrl = Environment.apiBaseUrl + "/Clientes";
 
   // GET
   static Future<List<Cliente>> getClientes() async {

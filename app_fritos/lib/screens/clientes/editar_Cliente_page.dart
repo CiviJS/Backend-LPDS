@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/cliente.dart';
-import '../../services/Cliente_service.dart';
+import '../../services/ClienteService.dart';
 
 class EditarClientePage extends StatefulWidget {
   final Cliente cliente;

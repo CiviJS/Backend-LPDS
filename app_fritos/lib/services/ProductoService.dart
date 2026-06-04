@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/producto.dart';
-
+import '../config/Environment.dart';
 class ProductoService {
-  static const String baseUrl = "http://localhost:3000/api/productos";
+  static const String baseUrl = Environment.apiBaseUrl + "/productos";
 
   // GET
   static Future<List<Producto>> getProductos() async {
@@ -43,7 +43,9 @@ class ProductoService {
       body: json.encode({
         "nombre": p.nombre,
         "precio_sugerido": p.precio,
-        "activo": p.activo
+        "activo": p.activo,
+        "cantidad_inicial": p.cantidadInicial,
+        "cantidad_actual": p.cantidadActual
       }),
     );
 
@@ -56,8 +58,9 @@ class ProductoService {
   static Future<void> eliminarProducto(int id) async {
     final res = await http.delete(Uri.parse("$baseUrl/$id"));
 
-    if (res.statusCode != 200) {
-      throw Exception("Error al eliminar");
+    // Aceptar 200 o 204 como éxito según la implementación del backend
+    if (res.statusCode != 200 && res.statusCode != 204) {
+      throw Exception("Error al eliminar: ${res.statusCode}");
     }
   }
 }

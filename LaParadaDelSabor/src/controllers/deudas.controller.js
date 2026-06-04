@@ -1,7 +1,7 @@
 const {
   crearDeudaService,
   obtenerDeudasService,
-  buscarDeudaService,
+  buscarDeudaServiceByCliente,
   actualizarDeudaService,
   eliminarDeudaService
 } = require("../services/deudas.service");
@@ -9,7 +9,6 @@ const {
 const crearDeuda = async (req, res) => {
   try {
     const deuda = await crearDeudaService(req.body);
-
     res.json({ success: true, data: deuda });
 
   } catch (error) {
@@ -32,7 +31,7 @@ const buscarDeuda = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deuda = await buscarDeudaService(id);
+    const deuda = await buscarDeudaServiceByCliente(id);
 
     res.json({ success: true, data: deuda });
 

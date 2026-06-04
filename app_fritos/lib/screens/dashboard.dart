@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'productos/productos_page.dart';
 import 'clientes/clientes_page.dart';
-import 'ventas_page.dart';
+import 'ventas/ventas_page.dart';
+import 'reportes/reportes_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -10,28 +11,32 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: const Text("La Parada Del Sabor"),
           centerTitle: true,
           bottom: const TabBar(
+            isScrollable: true,
             tabs: [
-              Tab(text: 'Venta',),
-              Tab(text: 'Cliente',),
+              Tab(text: 'Venta'),
+              Tab(text: 'Cliente'),
               Tab(text: 'Productos'),
-              Tab(text: 'Reportes')
-              ]),
-        ), body: const TabBarView(children: [
-            Center(child: VentasPage(),),
-            Center(child: ClientesPage()),
-            Center(child: ProductosPage()),
-            Center(child: Text('Vista de Reportes')),
+              Tab(text: 'Deudas'),
+              Tab(text: 'Reportes'),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            VentasPage(),
+            ClientesPage(),
+            ProductosPage(),
+            Center(child: Text('Vista de Deudas')),
+            ReportesPage(),
           ],
         ),
       ),

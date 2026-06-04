@@ -1,9 +1,12 @@
 const db = require("../config/db");
 
-const crearDetalleDeudaService = async (data) => {
+const crearDetalleDeudaService = async (data, connection) => {
   const { deuda_id, producto_id, cantidad, precio_unitario } = data;
 
-  const [result] = await db.execute(
+  // Si viene una conexión de la transacción, usamos esa. Si no, usamos la global 'db'
+  const dbConnection = connection || db;
+
+  const [result] = await dbConnection.execute(
     `INSERT INTO detalle_deuda (deuda_id, producto_id, cantidad, precio_unitario)
      VALUES (?, ?, ?, ?)`,
     [deuda_id, producto_id, cantidad, precio_unitario]

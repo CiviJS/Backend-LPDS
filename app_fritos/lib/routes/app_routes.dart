@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 
 // DASHBOARD
 import '../screens/dashboard.dart';
-
-// CLIENTES
-import '../screens/clientes/clientes_page.dart';
-import '../screens/clientes/crear_cliente_page.dart';
-import '../screens/clientes/editar_cliente_page.dart';
-import '../models/cliente.dart';
-
 // PRODUCTOS
 import '../screens/productos/productos_page.dart';
 import '../screens/productos/crear_producto_page.dart';
