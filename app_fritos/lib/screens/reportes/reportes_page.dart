@@ -44,11 +44,25 @@ class _ReportesPageState extends State<ReportesPage> {
 
   int get totalVentasHoy => ventas.fold(0, (value, item) => value + item.totalVendidoHoy);
 
+  double get totalIngresoEstimadoHoy => ventas.fold(
+        0.0,
+        (value, item) => value + item.precioSugerido * item.totalVendidoHoy,
+      );
+
+  int get productosActivos => ventas.where((item) => item.activo == 1).length;
+
   int get productosConVentasHoy => ventas.where((item) => item.totalVendidoHoy > 0).length;
 
   List<VentaReporte> get topVendidos {
     final lista = ventas.where((item) => item.totalVendidoHoy > 0).toList();
     lista.sort((a, b) => b.totalVendidoHoy.compareTo(a.totalVendidoHoy));
+    return lista;
+  }
+
+  List<VentaReporte> get topPorIngreso {
+    final lista = ventas.where((item) => item.totalVendidoHoy > 0).toList();
+    lista.sort((a, b) =>
+        (b.precioSugerido * b.totalVendidoHoy).compareTo(a.precioSugerido * a.totalVendidoHoy));
     return lista;
   }
 
@@ -132,7 +146,7 @@ class _ReportesPageState extends State<ReportesPage> {
                           ),
                           _SummaryCard(
                             title: 'Productos activos',
-                            value: ventas.length.toString(),
+                            value: productosActivos.toString(),
                             icon: Icons.layers,
                             color: Colors.teal,
                           ),
@@ -141,6 +155,12 @@ class _ReportesPageState extends State<ReportesPage> {
                             value: productosConVentasHoy.toString(),
                             icon: Icons.shopping_cart,
                             color: Colors.orange,
+                          ),
+                          _SummaryCard(
+                            title: 'Ingreso estimado',
+                            value: '\$${totalIngresoEstimadoHoy.toStringAsFixed(2)}',
+                            icon: Icons.monetization_on,
+                            color: Colors.green,
                           ),
                           _SummaryCard(
                             title: 'Productos alta rotacion',
@@ -154,8 +174,11 @@ class _ReportesPageState extends State<ReportesPage> {
                       _SectionTitle(title: 'Top productos mas vendidos'),
                       ..._buildTopProducts(),
                       const SizedBox(height: 18.0),
-                      _SectionTitle(title: 'Productos que se agotan rapido'),
+                      _SectionTitle(title: 'Productos que se agotan rápido'),
                       ..._buildFastMovingProducts(),
+                      const SizedBox(height: 18.0),
+                      _SectionTitle(title: 'Productos con mayor ingreso estimado'),
+                      ..._buildTopRevenueProducts(),
                       const SizedBox(height: 18.0),
                       _SectionTitle(title: 'Recomendaciones'),
                       ..._buildRecomendaciones(),
@@ -200,6 +223,22 @@ class _ReportesPageState extends State<ReportesPage> {
         title: item.nombre,
         subtitle: 'Ritmo alto: ${item.totalVendidoHoy} ventas hoy',
         detail: 'Sugerencia: revisar stock o preparar reposicion',
+      );
+    }).toList();
+  }
+
+  List<Widget> _buildTopRevenueProducts() {
+    final list = topPorIngreso;
+    if (list.isEmpty) {
+      return [const Text('No hay productos con ventas para calcular ingresos.')];
+    }
+
+    return list.take(4).map((item) {
+      final ingreso = item.precioSugerido * item.totalVendidoHoy;
+      return _ReportItemCard(
+        title: item.nombre,
+        subtitle: 'Ingreso estimado: \$${ingreso.toStringAsFixed(2)}',
+        detail: 'Vendidos hoy: ${item.totalVendidoHoy}',
       );
     }).toList();
   }
@@ -253,7 +292,7 @@ class _SummaryCard extends StatelessWidget {
     return SizedBox(
       width: 156.0,
       child: Card(
-        color: color.withOpacity(0.08),
+        color: color.withValues(alpha: 0.08),
         elevation: 1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         child: Padding(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'productos/productos_page.dart';
 import 'clientes/clientes_page.dart';
 import 'ventas/ventas_page.dart';
+import 'deudas/deudas_page.dart';
 import 'reportes/reportes_page.dart';
 
 class Dashboard extends StatefulWidget {
@@ -35,7 +36,7 @@ class _DashboardState extends State<Dashboard> {
             VentasPage(),
             ClientesPage(),
             ProductosPage(),
-            Center(child: Text('Vista de Deudas')),
+            DeudasPage(),
             ReportesPage(),
           ],
         ),
